@@ -184,4 +184,19 @@ public class ApiWithRestAssuredTest {
                 .statusCode(400)
                 .body("error", is("Missing password"));
     }
+
+    @Test
+    @DisplayName("Delayed response")
+    public void delayedResponse() {
+        given()
+                .when()
+                .get("/api/users?delay=3")
+                .then()
+                .statusCode(200)
+                .body("page", is(1),
+                        "per_page", is(6),
+                        "total", is(12),
+                        "total_pages", is(2),
+                        "data", notNullValue());
+    }
 }
