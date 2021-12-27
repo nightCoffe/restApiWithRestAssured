@@ -144,4 +144,17 @@ public class ApiWithRestAssuredTest {
                 .then()
                 .statusCode(204);
     }
+
+    @Test
+    @DisplayName("Register Unsuccessful")
+    public  void registerUnsuccessful() {
+        given()
+                .contentType(JSON)
+                .body("{ \"email\": \"sydney@fife\" }")
+                .when()
+                .post("/api/register")
+                .then()
+                .statusCode(400)
+                .body("error", is("Missing password"));
+    }
 }
