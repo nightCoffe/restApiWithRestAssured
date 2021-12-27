@@ -130,7 +130,18 @@ public class ApiWithRestAssuredTest {
                 .when()
                 .put("/api/users/2")
                 .then()
-                .body("name", is("morpheus"), "job", is("zion resident"),
+                .body("name", is("morpheus"),
+                        "job", is("zion resident"),
                         "updatedAt", notNullValue());
+    }
+
+    @Test
+    @DisplayName("Patch update")
+    public void deleteUser() {
+        given()
+                .when()
+                .delete("/api/users/2")
+                .then()
+                .statusCode(204);
     }
 }
