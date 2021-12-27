@@ -136,7 +136,7 @@ public class ApiWithRestAssuredTest {
     }
 
     @Test
-    @DisplayName("Patch update")
+    @DisplayName("Delete user")
     public void deleteUser() {
         given()
                 .when()
