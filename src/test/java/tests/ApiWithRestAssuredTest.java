@@ -9,6 +9,7 @@ import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 
 public class ApiWithRestAssuredTest {
@@ -92,5 +93,44 @@ public class ApiWithRestAssuredTest {
                 .then()
                 .statusCode(200)
                 .body("page", is(1), "per_page", is(6), "total", is(12), "total_pages", is(2));
+    }
+
+    @Test
+    @DisplayName("Single <resource>")
+    public void singleResource() {
+        given()
+                .when()
+                .get("/api/unknown/2")
+                .then()
+                .statusCode(200)
+                .body("data.id", is(2),
+                        "data.name", is("fuchsia rose"),
+                        "data.year", is(2001),
+                        "data.color", is("#C74375"));
+    }
+
+    @Test
+    @DisplayName("Single <resource> not found")
+    public void singleResourceNotFound() {
+        given()
+                .when()
+                .get("/api/unknown/23")
+                .then()
+                .statusCode(404)
+                .body(is("{}"));
+    }
+
+    @Test
+    @DisplayName("Update")
+    public void updateDataUser() {
+        given()
+                .contentType(JSON)
+                .body("{ \"name\": \"morpheus\"," +
+                        " \"job\": \"zion resident\" }")
+                .when()
+                .put("/api/users/2")
+                .then()
+                .body("name", is("morpheus"), "job", is("zion resident"),
+                        "updatedAt", notNullValue());
     }
 }
