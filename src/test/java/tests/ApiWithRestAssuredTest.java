@@ -33,7 +33,6 @@ public class ApiWithRestAssuredTest {
     @Test
     @DisplayName("Single user")
     void singleUser() {
-        openUrl();
         given()
                 .when()
                 .get("/api/users/2")
@@ -50,7 +49,6 @@ public class ApiWithRestAssuredTest {
     @Test
     @DisplayName("Single user not found")
     public void singleUserNotFound() {
-        openUrl();
         given()
                 .when()
                 .get("/api/users/23")
@@ -62,7 +60,6 @@ public class ApiWithRestAssuredTest {
     @Test
     @DisplayName("Create")
     public void createUser() {
-        openUrl();
         given()
                 .contentType(JSON)
                 .body("{\"name\": \"morpheus\",\"job\": \"leader\"\n}")
@@ -76,7 +73,6 @@ public class ApiWithRestAssuredTest {
     @Test
     @DisplayName("Register Successful")
     public void registerSuccessful() {
-        openUrl();
         given()
                 .contentType(JSON)
                 .body("{\"email\": \"eve.holt@reqres.in\",\"password\": \"pistol\"}")
