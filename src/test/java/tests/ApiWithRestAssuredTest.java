@@ -171,4 +171,17 @@ public class ApiWithRestAssuredTest {
                 .statusCode(200)
                 .body("token", is("QpwL5tke4Pnpja7X4"));
     }
+
+    @Test
+    @DisplayName("Login unsuccessful")
+    public void loginUnsuccessful() {
+        given()
+                .contentType(JSON)
+                .body("{ \"email\": \"peter@klaven\" }")
+                .when()
+                .post("/api/login")
+                .then()
+                .statusCode(400)
+                .body("error", is("Missing password"));
+    }
 }
